@@ -1,4 +1,4 @@
-文档浏览：[https://evilrecluse.top/Babel-traverse-api/#/](https://evilrecluse.top/Babel-traverse-api/#/)  
+文档浏览：[https://evilrecluse.top/Babel-traverse-api-doc/#/](https://evilrecluse.top/Babel-traverse-api-doc/#/)  
 推荐使用 ↑↑↑GitPage↑↑↑ 进行浏览  
 
 ## API信息  
