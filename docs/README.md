@@ -1,11 +1,10 @@
-文档浏览：[https://evilrecluse.top/Babel-traverse-api/#/](https://evilrecluse.top/Babel-traverse-api/#/)
-推荐使用 ↑↑↑GitPage↑↑↑ 进行浏览
+
 ## API信息  
 
 這些記錄是我自行查閲文檔/源代碼，來進行編寫的  
 大多數都會編寫一個小例子來進行説明  
 
-内容并不一定準確，如果發現有什麽問題，歡迎通過此文档[github](https://github.com/RecluseXU/Babel-traverse-api) 聯係  
+内容并不一定準確，要是發現有什麽問題，歡迎通過 [Github](https://github.com/RecluseXU/Babel-traverse-api-example) 聯係  
 
 
 此处会对 **@babel/parse** 与 **@babel/generator** 进行简单的说明  
