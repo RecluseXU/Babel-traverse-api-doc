@@ -6,7 +6,7 @@
 這些記錄是我自行查閲文檔/源代碼，來進行編寫的  
 大多數都會編寫一個小例子來進行説明  
 
-内容并不一定準確，如果發現有什麽問題，歡迎通過此文档[github](https://github.com/RecluseXU/Babel-traverse-api) 聯係  
+内容并不一定準確，如果發現有什麽問題，歡迎通過此文档[github](https://github.com/RecluseXU/Babel-traverse-api-doc) 聯係  
 
 
 此处会对 **@babel/parse** 与 **@babel/generator** 进行简单的说明  
