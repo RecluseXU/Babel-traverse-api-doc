@@ -1,29 +1,39 @@
 文档浏览：[https://evilrecluse.top/Babel-traverse-api-doc/#/](https://evilrecluse.top/Babel-traverse-api-doc/#/)  
 推荐使用 ↑↑↑GitPage↑↑↑ 进行浏览  
 
+
+
 ## API信息  
 
-這些記錄是我自行查閲文檔/源代碼，來進行編寫的  
-大多數都會編寫一個小例子來進行説明  
+由于 Babel 官方文档中没有 **@babel/traverse** API文档，只有一份奇怪的操作说明书 [Babel Plugin Handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse)。所以我自行编写了一个简略的API记录  
 
-内容并不一定準確，如果發現有什麽問題，歡迎通過此文档[github](https://github.com/RecluseXU/Babel-traverse-api-doc) 聯係  
+這些記錄是我自行查閲文檔/源代碼，來進行編寫的，大多數都會編寫一個小例子來進行説明  
 
+内容并不一定準確，如果發現有什麽問題，歡迎通過此文档 [github](https://github.com/RecluseXU/Babel-traverse-api-doc) 聯係  
 
 此处会对 **@babel/parse** 与 **@babel/generator** 进行简单的说明  
 二者皆有官方文档可以参阅，若无兴趣，可以跳过  
 
 
+
+
 ## @babel/parse  
-@babel/parse 是解析代码所用的库
+**@babel/parse** 是用于将代码解析语法树所使用的库
 将代码进行解析，转变为语法树，是进行语法树操作的必要前置步骤  
+
+
 
 ### 解析函数  
 
 #### babelParser.parse(code, \[options])  
 将提供的代码作为一个完整的`ECMAScript`程序进行解析  
 
+
+
 #### babelParser.parseExpression(code, \[options])  
 用于解析单个`Expression`，性能比`parse()`要高  
+
+
 
 #### options 函数参数  
 
@@ -71,6 +81,8 @@
 官方文档：https://babeljs.io/docs/en/babel-generator    
 
 
+
+
 ### generate(ast,  options,  code)  
 
 函数用于根据ast生成代码，可以传入一些参数  
@@ -112,7 +124,9 @@ function delete_comments(sourceCode) {
 
 ## @babel/traverse  
 
-用于对语法树进行操作的库  
+**@babel/traverse** 是用于对语法树进行各种操作的库  
+
+
 
 ### index  
 
@@ -164,7 +178,7 @@ traverse(ast, visitor);
 
 `@return bool`  
 
-是否在列表中/是否存在兄弟节点
+是否在列表中/是否存在兄弟节点  
 
 一般只有那些能存放多个节点的节点才会将节点存放在列表中  
 
@@ -283,13 +297,11 @@ console.log(generator(ast)['code'])
 
 #### NodePath.replaceWithSourceString(replacement:String)    
 
-此方法用 传入的源码字符串 解析成对应节点后 替换 对应`NodePath`的`Node`   
+此方法用 传入的源码字符串 解析成对应 `Node` 后 替换 对应 `NodePath` 的 `Node`   
 
-写入的内容解析成 `Node`后，必须为 `Expression`类型   
+写入的内容解析成 `Node`后，必须为 `Expression` 类型   
 
-十分不方便，而且性能较差，不建议使用   
-
-
+此函数方便但是性能较差，不建议使用   
 
 ~~~javascript
 const t = require("@babel/types");
@@ -316,9 +328,11 @@ console.log(generator(ast)['code'])
 
 #### NodePath.replaceInline(nodes)  
 
-用传入的一个或多个`Node`替换对应 `Node`  
+用传入的一个或多个 `Node` 替换对应  `Node`  
 
-此函数视传入的内容去调用 [NodePath.replaceWithMultiple()](#nodepathreplacewithmultiplenodes) 或 NodePath.replaceWith()](#nodepathreplacewithreplacementnode)  ，相当于同时有了这两个函数的功能  
+此函数视传入的内容去调用 [NodePath.replaceWithMultiple()](#nodepathreplacewithmultiplenodes)  或  [NodePath.replaceWith()](#nodepathreplacewithreplacementnode)  ，相当于同时有了这两个函数的功能  
+
+> 例子：使用 NodePath.replaceInline 替换目标节点  
 
 ~~~javascript
 const t = require("@babel/types");
@@ -347,8 +361,6 @@ console.log(generator(ast)['code'])
 
 
 
-
-
 ### ancestry  
 父级/祖先相关  
 
@@ -358,9 +370,9 @@ console.log(generator(ast)['code'])
 #### NodePath.findParent(callback)  
 
 `@return NodePath | None`  
-逐级递归寻找父级节点的Path，并将`NodePath`作为参数传入的判断函数进行判断  
-当判断函数返回`true`, 则`NodePath.findParent(callback)`返回对应`NodePath`  
-当判断函数返回`false`, 则递归继续寻找父级, 进行判断。若已无父级，则返回`null`  
+逐级递归寻找父级节点的Path，并将 `NodePath` 作为参数传入的判断函数进行判断  
+当判断函数返回 `true`, 则 `NodePath.findParent(callback)` 返回对应 `NodePath`  
+当判断函数返回 `false`, 则递归继续寻找父级, 进行判断。若已无父级，则返回`null`  
 
 >例: 寻找当前Path的父级函数节点  
 
@@ -396,8 +408,11 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到的输出结果  
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 to_parent_function_path 最终路径源码:
@@ -407,7 +422,12 @@ to_parent_function_path 最终路径源码:
 }
 to_null 最终路径:
  null
-~~~
+</pre>
+</details>
+
+
+
+
 
 
 
@@ -451,8 +471,11 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到的输出结果  
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 to_path最终路径源码:
@@ -462,7 +485,10 @@ to_parent_function_path最终路径源码:
   var b = 123;
   a = b + 1;
 }
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -497,8 +523,11 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到对应结果
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 最终路径源码:
@@ -506,7 +535,10 @@ traverse(ast, visitor);
   var b = 123;
   a = b + 1;
 }
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -543,8 +575,11 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到的结果  
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  f2
 最终路径源码:
@@ -563,7 +598,10 @@ traverse(ast, visitor);
 最终路径源码:
  return b + 1;
 ------------------------------------
-~~~
+</pre>
+</details>
+
+  
 
 
 
@@ -597,8 +635,11 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-输出结果  
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 返回类型:
@@ -622,7 +663,10 @@ function f2() {
   var b = 123;
   a = b + 1;
 }
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -630,7 +674,7 @@ function f2() {
 #### NodePath.isDescendant(path)  
 
 `@return bool` 
-判断当前 NodePath 是否是指定 NodePath 的后代  
+判断当前 `NodePath` 是否是指定 `NodePath` 的后代  
 
 此方法通过调用 [`NodePath.findParent(callback)`](#nodepathfindparentcallback) 来进行判断，得到结果  
 
@@ -658,23 +702,29 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-输出结果：  
-~~~javascript
+  
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 儿子是爸爸的后代： true
 儿子是爷爷的后代： true
 儿子是孙子的后代： false
-~~~
+</pre>
+</details>
+
+
 
 
 
 #### NodePath.isAncestor(path)  
 
 `@return bool`  
-判断当前 Path 是否是指定 Path 的后代  
+判断当前 NodePath 是否是指定 NodePath 的后代  
 
-此方法是调用 传入的 `NodePath` 的[`NodePath.isDescendant()`](#nodepathisdescendantpath) 来进行判断的  
+此方法是调用 传入的 `NodePath` 的 [`NodePath.isDescendant()`](#nodepathisdescendantpath)  来进行判断的  
 
 >例：判断是否是后代  
 
@@ -700,14 +750,20 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到结果:
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
  a = b + 1
 儿子是爸爸的祖先： false
 儿子是爷爷的祖先： false
 儿子是孙子的祖先： true
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -742,13 +798,21 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-输出的结果：  
-~~~javascript
+
+
+<details>
+    <summary>结果</summary>   
+<pre>
 当前路径源码:
- a = b + 1
+a = b + 1
 父级或自身包含函数声明节点： true
 父级或自身包含 with 或 debugger： false
-~~~
+</pre>
+</details>
+
+
+
+
 
 
 
@@ -798,7 +862,26 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-得到结果  
+
+
+<details>
+    <summary>结果</summary>   
+    <pre><code>  
+当前节点源码:
+var a = 1;
+---------------------------------------------
+第1个兄弟的源码 console.log('code 1');
+第2个兄弟的源码 console.log('code 2');
+第3个兄弟的源码 var a = 1;
+第4个兄弟的源码 console.log('code 3');
+第5个兄弟的源码 console.log('code 4');
+body
+---------------------------------------------
+    </code></pre>
+</details>
+
+
+
 ~~~javascript
 路径源码:
  return 1;
@@ -834,11 +917,11 @@ traverse(ast, visitor);
 
 #### NodePath.getEarliestCommonAncestorFrom(paths)  
 
-`@return NodePath`
+`@return NodePath`  
 获取多个 `NodePath`对象的 最早出现的共同祖先  
-方法会遍历计算，共同祖先一旦出现, 则返回，不再继续计算所有的 `NodePath`  
+方法会遍历计算，共同祖先一旦出现, 则返回，不再继续计算所有的 `NodePath`    
 
-此方法是调用 [NodePath.getDeepestCommonAncestorFrom(paths, filter)](#nodepathgetdeepestcommonancestorfrompaths-filter) 方法，传入固定的`filter`函数来实现    
+此方法是调用 [NodePath.getDeepestCommonAncestorFrom(paths, filter)](#nodepathgetdeepestcommonancestorfrompaths-filter) 方法，传入固定的 `filter` 函数来实现    
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -890,7 +973,7 @@ traverse(ast, visitor);
 
 * 如果传入数字，则尝试获取 父级节点 指定位置的 `NodePath`  
 
-* 也可以传入一些特殊的key, 获取一些特殊的内容。
+* 也可以传入一些特殊的key, 获取一些特殊的内容  
 
   可以使用 `NodePath.listKey`属性 查看可以获取的key  
 
@@ -927,11 +1010,13 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-得到的结果  
+ 
 
-~~~javascript
+<details>
+    <summary>结果</summary>   
+    <pre>
 当前节点源码:
- var a = 1;
+var a = 1;
 ---------------------------------------------
 第1个兄弟的源码 console.log('code 1');
 第2个兄弟的源码 console.log('code 2');
@@ -940,7 +1025,8 @@ traverse(ast, visitor);
 第5个兄弟的源码 console.log('code 4');
 body
 ---------------------------------------------
-~~~
+</pre>
+</details>
 
 
 
@@ -950,7 +1036,7 @@ body
 
 `@return Node`  
 
-获取相对的对位节点 (left 与 right)  
+获取相对的对位节点 (`left` 与 `right`)  
 
 此函数通过调用 [`NodePath.getSibling(key)`](#nodepathgetsiblingkey) , 传入 当前节点的 `left` 或 `right` `key`实现  
 
@@ -976,9 +1062,11 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-得到结果  
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 当前节点源码:
  1
 对应节点源码:
@@ -989,7 +1077,10 @@ traverse(ast, visitor);
 对应节点源码:
  1
 ----------------
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -1024,9 +1115,11 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-得到结果:  
 
-~~~java
+
+<details>
+<summary>结果</summary>   
+<pre>
 当前节点源码:
  a = a + a;
 同级前一个节点源码:
@@ -1042,7 +1135,10 @@ traverse(ast, visitor);
 同级前一个节点源码:
  console.log(a);
 ----------------
-~~~
+</pre>
+</details>
+
+  
 
 
 
@@ -1050,7 +1146,7 @@ traverse(ast, visitor);
 
 `@return Node`  
 
-获取同级后一个节点的 `NodePath`
+获取同级后一个节点的 `NodePath`  
 
 此函数源码就一句 `return this.getSibling(this.key + 1);`  
 
@@ -1077,9 +1173,11 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-输出结果:    
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 当前节点源码:
  a = a + a;
 同级前一个节点源码:
@@ -1093,9 +1191,12 @@ traverse(ast, visitor);
 当前节点源码:
  console.log(b);
 同级前一个节点源码:
- 
+<span></span>
 ----------------
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -1132,9 +1233,11 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-输出结果：  
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 当前节点源码:
  a = a + a;
 前面的兄弟节点源码:
@@ -1153,13 +1256,16 @@ console.log(a);
 a = a + a;
 var a = 1 + 9;
 ----------------
-~~~
+</pre>
+</details>
+
+
 
 
 
 #### NodePath.get(key, context)  
 
-`@return NodePath`
+`@return NodePath`  
 
 用于获取子孙节点  
 
@@ -1167,11 +1273,11 @@ var a = 1 + 9;
 
 如果传入，则以传入的 `NodePath` 对应节点为起点  
 
-如果想要获取更多层级的子孙，可以用 `.` 隔开进行获取
+如果想要获取更多层级的子孙，可以用 `.` 隔开进行获取  
 
-* 获取某个单个属性节点 `.名字`
+* 获取某个单个属性节点 `.名字`  
 
-* 获取某个节点的第 x 个节点 `.x`
+* 获取某个节点的第 x 个节点 `.x`  
 
 
 
@@ -1197,9 +1303,11 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-输出结果：  
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 body 子节点源码:
  {
   var a = 1;
@@ -1207,7 +1315,8 @@ body 子节点源码:
 }
 body.body.0 子节点源码:
  var a = 1;
-~~~
+</pre>
+</details>
 
 
 
@@ -1245,8 +1354,6 @@ const visitor = {
 
 traverse(ast, visitor);
 ~~~
-
-
 
 
 
@@ -1364,11 +1471,12 @@ traverse(ast, visitor);
 
 获取当前作用域的父级作用域  
 
-此方法通过引用其 `Scope.path` 属性的 [`PathNode.findParent()`](#nodepathfindparentcallback)方法 获取对应`PathNode`后再次获取作用域的方式获取  
+此方法通过引用其 `Scope.path` 属性的  [`PathNode.findParent()`](#nodepathfindparentcallback) 方法 获取对应`PathNode`后再次获取作用域的方式获取  
 
 
 
 > 例：获取父级作用域
+
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -1553,13 +1661,18 @@ console.log(generator(ast)['code'])
 
 ~~~
 
-得到结果：  
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 function a(_x_) {
   return _x_ * _x_;
 }
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -1839,11 +1952,11 @@ traverse(ast, visitor);
 
 ##### Scope.getBindingIdentifier(name)    
 `@return Node | void 0`  
-获取指定的  [`Binding`](#Binding) 的定义节点`Node`  
+获取指定的  [`Binding`](#Binding) 的定义节点`Node`    
 
-方法作用域获取 [`Binding`](#Binding) ，再通过这个  [`Binding`](#Binding)  获取其定义的节点  
+方法作用域获取 [`Binding`](#Binding) ，再通过这个  [`Binding`](#Binding)  获取其定义的节点    
 
-这个方法通过 [`Scope.getBinding(name)`](#scopegetbindingname) 方法获取 [`Binding`](#Binding)  ，所以会存在递归向上的情况  
+这个方法通过 [`Scope.getBinding(name)`](#scopegetbindingname) 方法获取 [`Binding`](#Binding)  ，所以会存在递归向上的情况    
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -1946,19 +2059,24 @@ traverse(ast, visitor);
 
 ~~~
 
-得到结果：  
 
-~~~javascript
+
+<details>
+<summary>结果</summary>   
+<pre>
 这里是 return g;
 当前作用域有 绑定 z: false
 当前作用域有 绑定 g: false
-
+<span></span>
 这里是 return z;
 当前作用域有 绑定 z: true
 当前作用域有 绑定 g: false
-~~~
+</pre>
+</details>
 
-两个函数的作用域内都不会有g的绑定，因为它被绑定在更上级作用域中  
+
+
+两个函数的作用域内都不会有`g`的绑定，因为它被绑定在更上级作用域中  
 
 
 
