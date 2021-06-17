@@ -1,1 +1,3 @@
 .bat
+node_modules
+.vscode
