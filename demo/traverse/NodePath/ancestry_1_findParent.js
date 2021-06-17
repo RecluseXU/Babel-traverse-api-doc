@@ -5,9 +5,8 @@
 // 当判断函数返回`false`, 则递归继续寻找父级, 进行判断  
 // 若已无父级，则返回`null`
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f(){

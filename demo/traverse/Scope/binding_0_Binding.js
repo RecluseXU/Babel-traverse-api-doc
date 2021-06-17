@@ -1,8 +1,7 @@
 // Binding 对象用于存储 被绑定在作用域的量 的信息
 // 你可以在 @babel/traverse/lib/scope/binding.js 查看到它的定义  
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 function a(){

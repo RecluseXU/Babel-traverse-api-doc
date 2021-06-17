@@ -8,10 +8,9 @@
 
 // 其定义位置在： @babel/types/lib/validators/generated/index.js
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
-const t = require(js_env + "@babel/types");
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const t = require("@babel/types");
 
 const jscode = 'var a=1;var b=1+1;';
 let ast = parser.parse(jscode);

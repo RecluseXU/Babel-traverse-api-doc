@@ -2,9 +2,8 @@
 // Path对应节点，或其 父/祖先 节点 是否包含特定类型的节点
 // 可以一次性传入多个类型，只要有一个符合就会返回 true, 否则返回 false  
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f2(){

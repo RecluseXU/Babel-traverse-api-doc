@@ -5,12 +5,11 @@
 
 // 逐级递归寻找父级节点，并将对应`Path`作为参数传入的判断函数进行判断  
 // 当判断函数返回`true`, 则`Path.findParent(callback)`返回对应`Path`  
-// 当判断函数返回`false`, 则递归继续寻找父级, 进行判断  
+// 当判断函数返回`false`, s, 进行判断  
 // 若已无父级，则返回`null`
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f(){

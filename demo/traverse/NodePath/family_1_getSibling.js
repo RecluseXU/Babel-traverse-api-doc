@@ -4,9 +4,8 @@
 // * 如果传入数字，则尝试获取 同级节点 指定位置的 NodePath
 // * 如果传入数字，则尝试获取 父级节点 指定位置的 NodePath
 // * 也可以传入一些特殊的key, 获取一些特殊的内容可以使用 NodePath.listKey属性 查看
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 function x(){

@@ -2,9 +2,8 @@
 // @return bool
 // 当前 Path 是否是指定 Path 的后代
 // 这个方法是调用 传入的path的Path.isDescendant() 来进行判断的
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f2(){

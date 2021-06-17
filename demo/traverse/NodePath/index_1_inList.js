@@ -2,9 +2,8 @@
 // @return bool
 // 是否在列表中/是否存在兄弟节点
 // 一般只有那些能存放多个节点的节点才会将节点存放在列表中
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `function square(n) {
   var a = 1;

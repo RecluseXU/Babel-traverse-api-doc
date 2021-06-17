@@ -18,9 +18,8 @@
 //  - i { constant: true, references: 0, violations: 0, kind: 'hoisted' }
 // ------------------------------------------------------------
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 function squire(i){

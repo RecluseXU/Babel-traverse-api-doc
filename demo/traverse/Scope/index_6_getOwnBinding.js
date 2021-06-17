@@ -3,9 +3,8 @@
 // 传入一个名称，从当前的 作用域 中拿到指定的定义
 // 源码就一句`return this.bindings[name];`
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 var g = 1;

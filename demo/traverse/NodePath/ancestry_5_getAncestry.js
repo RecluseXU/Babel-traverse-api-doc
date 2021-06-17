@@ -1,10 +1,9 @@
 // Path.getAncestry()
 // @return NodePath
 // 返回所有 父级/祖先 的Path，@return Array
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
-const generator = require(js_env +"@babel/generator").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
 
 var jscode = `
 function f2(){

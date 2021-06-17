@@ -1,11 +1,10 @@
 // NodePath.replaceWith(replacement)
 // 方法用于将传入的 Node替换对应NodePath的Node
 // 此方法只能用一个节点替换一个节点
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const t = require(js_env + "@babel/types");
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
-const generator = require(js_env +"@babel/generator").default;
+const t = require("@babel/types");
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
 
 const jscode = `function square(n) {
   return n + 1;

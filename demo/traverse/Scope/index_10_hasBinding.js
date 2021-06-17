@@ -1,9 +1,8 @@
 // Scope.hasBinding(name, noGlobals)
 // @return bool
 // 向上递归作用域，获知是否有某个被绑定变量
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 var g = 1;

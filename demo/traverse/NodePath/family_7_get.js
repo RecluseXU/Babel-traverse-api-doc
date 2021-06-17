@@ -6,9 +6,8 @@
 // 如果想要获取更多层级的子孙，可以用'.'隔开进行获取
 // * 获取某个单个属性节点 '.名字'
 // * 获取某个节点的第 x 个节点 '.x'
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `function square(n) {
   var a = 1;

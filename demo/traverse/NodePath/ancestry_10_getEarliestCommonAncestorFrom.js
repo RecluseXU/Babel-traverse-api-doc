@@ -2,9 +2,8 @@
 // @return NodePath
 // 获取`paths`中最早出现的共同祖先,一旦出现，则返回  
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f(){

@@ -2,9 +2,8 @@
 // @return Binding
 // 获取指定节点的 Binding ，这能知道这个量是定义在哪个定义域内的
 // 如果当前作用域找不到就会递归上上寻找
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
 var g = 1;

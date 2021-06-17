@@ -6,10 +6,9 @@
 // * type str 指定添加的注释方式，如果填入leading，则添加的注释会插入已有注释之前，否则在原有注释之后
 // * content str 注释内容
 // * line bool 插入行注释还是块注释
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
-const generator = require(js_env +"@babel/generator").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
 
 const jscode = `
   var a = 1 + 9;

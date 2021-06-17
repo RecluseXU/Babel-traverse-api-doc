@@ -1,10 +1,9 @@
 // NodePath.getBindingIdentifiers(duplicates)
 // @return dict(Node}
 // 用于获取当前 NodePath 所包含的 Identifier 节点
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
-const t = require(js_env + "@babel/types");
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const t = require("@babel/types");
 
 const jscode = `function square(n) {
   var a = 1;

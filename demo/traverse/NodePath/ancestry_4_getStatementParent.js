@@ -3,9 +3,8 @@
 // 向上遍历语法树，直到找到在列表中的父节点路径  
 // 声明节点所包含的节点类型见：https://github.com/babel/babylon/blob/master/ast/spec.md#blockstatement
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 var jscode = `
 function f2(){

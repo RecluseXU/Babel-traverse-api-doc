@@ -2,9 +2,8 @@
 // @return Node
 // 此函数源码就一句 return this.getSibling(this.key - 1);
 
-var js_env = "E:/Software/Programming/Environment/Nodejs/node_global/node_modules/";
-const parser = require(js_env + "@babel/parser");
-const traverse = require(js_env + "@babel/traverse").default;
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
 const jscode = `
   var a = 1 + 9;
