@@ -601,7 +601,7 @@ traverse(ast, visitor);
 </pre>
 </details>
 
-  
+
 
 
 
@@ -646,19 +646,19 @@ traverse(ast, visitor);
  true
 结果路径源码:
  a = b + 1
-
+<span></span>
 a = b + 1;
-
+<span></span>
 {
   var b = 123;
   a = b + 1;
 }
-
+<span></span>
 function f2() {
   var b = 123;
   a = b + 1;
 }
-
+<span></span>
 function f2() {
   var b = 123;
   a = b + 1;
@@ -702,7 +702,7 @@ const visitor = {
 let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
-  
+
 
 <details>
     <summary>结果</summary>   
@@ -863,26 +863,9 @@ let ast = parser.parse(jscode);
 traverse(ast, visitor);
 ~~~
 
-
 <details>
-    <summary>结果</summary>   
-    <pre><code>  
-当前节点源码:
-var a = 1;
----------------------------------------------
-第1个兄弟的源码 console.log('code 1');
-第2个兄弟的源码 console.log('code 2');
-第3个兄弟的源码 var a = 1;
-第4个兄弟的源码 console.log('code 3');
-第5个兄弟的源码 console.log('code 4');
-body
----------------------------------------------
-    </code></pre>
-</details>
-
-
-
-~~~javascript
+<summary>结果</summary>   
+<pre>
 路径源码:
  return 1;
 路径源码:
@@ -891,11 +874,11 @@ body
   function f1() {
     return 1;
   }
-
+<span></span>
   function f2() {
     return 2;
   }
-
+<span></span>
   return 3;
 }
 路径源码:
@@ -904,14 +887,16 @@ body
   function f1() {
     return 1;
   }
-
   function f2() {
     return 2;
   }
-
+<span></span>
   return 3;
 }
-~~~
+</pre>
+</details>
+
+
 
 
 
@@ -1138,7 +1123,7 @@ traverse(ast, visitor);
 </pre>
 </details>
 
-  
+
 
 
 
@@ -1397,6 +1382,10 @@ console.log(generator(ast)['code'])
 ~~~
 
 得到结果：  
+
+
+
+
 
 ~~~javascript
 function square(n) {
@@ -1737,7 +1726,12 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 得到结果：  
-~~~
+
+
+
+<details>
+<summary>结果</summary>   
+<pre>
 这里是函数  squire()
 ------------------------------------------------------------
 ## FunctionDeclaration
@@ -1746,8 +1740,8 @@ traverse(ast, visitor);
  - squire { constant: true, references: 0, violations: 0, kind: 'hoisted' }
  - i { constant: true, references: 0, violations: 0, kind: 'hoisted' }
 ------------------------------------------------------------
-
-
+<span></span>
+<span></span>
 这里是函数  i()
 ------------------------------------------------------------
 ## FunctionDeclaration
@@ -1756,7 +1750,12 @@ traverse(ast, visitor);
  - squire { constant: true, references: 0, violations: 0, kind: 'hoisted' }
  - i { constant: true, references: 0, violations: 0, kind: 'hoisted' }
 ------------------------------------------------------------
-~~~
+</pre>
+</details>
+
+
+
+
 
 
 
@@ -2008,12 +2007,14 @@ const visitor = {
 traverse(ast, visitor);
 ~~~
 
-得到结果:  
 
-~~~
+
+<details>
+<summary>结果</summary>   
+<pre>
 这里是 return g;
 g 的定义： undefined
-
+<span></span>
 这里是 return z;
 z 的定义： Node {
   type: 'Identifier',
@@ -2026,7 +2027,12 @@ z 的定义： Node {
   },
   name: 'z'
 }
-~~~
+</pre>
+</details>
+
+
+
+
 
 
 
