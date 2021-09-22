@@ -1342,6 +1342,46 @@ traverse(ast, visitor);
 
 
 
+### conversion  
+
+#### NodePath.ensureBlock()  
+
+判断节点是否存在 `body`, 如果存在 `body` 但其中的节点并非 `BlockStament` 则创建 `BlockStament` 进行包裹  
+
+如果 `NodePath` 本身没有 `body` 属性则会报错`Can't convert node without a body`  
+
+如果 `NodePath.body` 是数组(或许本身就是`BlockStament`) 则会报错 `Can't convert array path to a block statement`  
+
+~~~javascript
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
+
+var jscode = `
+	while(1==1)
+		console.log('While')
+
+	for(;1==1;)
+		console.log("For")
+
+	do
+		console.log("do...while")
+	while(1==1)
+`;
+
+const visitor = {
+	WhileStatement(path) { path.ensureBlock(); },
+	ForStatement(path) { path.ensureBlock(); },
+	DoWhileStatement(path) { path.ensureBlock(); },
+}
+
+let ast = parser.parse(jscode);
+traverse(ast, visitor);
+console.log(generator(ast)['code'])
+~~~
+
+
+
 
 
 ### removal  
