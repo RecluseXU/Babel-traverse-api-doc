@@ -2116,6 +2116,12 @@ traverse(ast, visitor);
 
 
 
+##### Scope.crawl()  
+
+用于刷新 Scope 内的数据  
+
+例如更新内部节点后Binding没有刷新的问题
+
 
 
 
