@@ -13,6 +13,7 @@ function a(n){
 let ast = parser.parse(jscode);
 const visitor = {
     ReturnStatement(path) {
+        // 作用域内定义新的变量a(Binding)
         let newNode = types.VariableDeclaration(
             "var", 
             [
@@ -23,11 +24,12 @@ const visitor = {
             ]
         );
         path.replaceWith(newNode);
-        console.log(Object.keys(path.scope.bindings));
+
+        console.log('未更新Scope信息时', Object.keys(path.scope.bindings));
         path.scope.crawl();
-        console.log(Object.keys(path.scope.bindings));
+        console.log('更新Scope信息后', Object.keys(path.scope.bindings));
     }
 }
 
 traverse(ast, visitor);
-console.log(generator(ast)['code'])
+console.log('最终代码', generator(ast)['code'])
