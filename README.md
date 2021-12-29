@@ -1664,9 +1664,10 @@ traverse(ast, visitor);
 
 ##### Scope.rename(oldName, newName, block)   
 
-更改绑定名称，更改后会牵连所有引用的位置，留意是否会造成问题  
+更改 绑定 的 `Identifier`, 更改后会改变作用域下所有引用该 绑定 的位置  
+通常用于改变作用域下的某个 变量名  
 
-> 例: 重命名绑定
+> 例: 变量重命名  
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -1710,7 +1711,7 @@ function a(_x_) {
 ##### Scope.dump()  
 `return null`  
 
-输出到自底向上的 作用域与被绑定量的信息  
+输出到自底向上的 **作用域** 与 **绑定** 的信息  
 
 执行后会得到类似于这样的输出信息  
 ~~~
@@ -1723,7 +1724,7 @@ function a(_x_) {
 
 作用域 以`#`划分，此处有两个作用域 `FunctionDeclaration` 与 `Program`  
 
-被绑定量 以最前方设置`-`来标识，一般显示其中的4种信息  
+Binding 以最前方设置`-`来标识，一般显示其中的4种信息  
 * constant  
    量 在声明后，在作用域内是否为常量（不会被修改）  
    实际上对应对应量的 [`Binding`](#Binding) 对象的`Binding.constant`属性  
@@ -1731,13 +1732,14 @@ function a(_x_) {
    被引用次数  
    实际上对应对应量的 [`Binding`](#Binding) 对象的`Binding.references`属性  
 * violations  
-   量 被 重新定义/赋值 的次数  
-   实际上对应对应量的 [`Binding`](#Binding) 对象的`Binding.constantViolations`的长度。这个属性被用于记录变更位置（每次变更都添加内容）  
+   被 重新定义/赋值 的次数  
+   实际上对应对应量的 [`Binding`](#Binding) 对象的`Binding.constantViolations`的长度  
+   这个属性被用于记录变更位置（每次变更都添加内容）  
 * kind  
    函数声明类型。常见的有：`hoisted`提升，`var`变量， `local`内部  
    实际上对应对应量的 [`Binding`](#Binding) 对象的`Binding.kind`属性  
 
-实际上这些信息大部分 （以一个被绑定量，一个  [`Binding`](#Binding) 对象的方式）储存在 `Scope.bindings` 这个属性中  
+实际上这些信息大部分 （以一个绑定, 一个  [`Binding`](#Binding) 对象的方式）储存在 `Scope.bindings` 这个属性中  
 
 >例：使用案例  
 
@@ -1933,9 +1935,9 @@ traverse(ast, visitor);
 
 在作用域中获取指定的 [`Binding`](#Binding)对象  
 
-如果在 当前作用域 找不到指定的 被绑定量，那么就会递归在父级作用域中寻找  
+如果在 当前作用域 找不到指定的 绑定, 那么就会递归在父级作用域中寻找  
 
-> 例：获取指定的 被绑定量对象  
+> 例：获取指定的 [`Binding`](#binding) 对象  
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -1951,7 +1953,7 @@ const visitor = {
     ReturnStatement(path){
         var n = path.node.argument.name
         console.log("\n这里是", path.toString())
-        console.log('被绑定量：', path.scope.getBinding(n))
+        console.log('绑定：', path.scope.getBinding(n))
     }
 }
 
@@ -2122,7 +2124,7 @@ traverse(ast, visitor);
 
 
 
-两个函数的作用域内都不会有`g`的绑定，因为它被绑定在更上级作用域中  
+两个函数的作用域内都不会有`g`的 绑定，因为它在更上级作用域中  
 
 
 
@@ -2131,7 +2133,7 @@ traverse(ast, visitor);
 ##### Scope.hasBinding(name, noGlobals)  
 
 `@return bool`  
-向上递归作用域，获知是否有某个被绑定变量  
+向上递归作用域，获知是否有某个 [`Binding`](#Binding)  
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -2146,8 +2148,8 @@ let ast = parser.parse(jscode);
 const visitor = {
     ReturnStatement(path){
         console.log("\n这里是", path.toString())
-        console.log('作用域有 被绑定变量 z:', path.scope.hasBinding('z'))
-        console.log('作用域有 被绑定变量 g:', path.scope.hasBinding('g'))
+        console.log('作用域有 绑定 z:', path.scope.hasBinding('z'))
+        console.log('作用域有 绑定 g:', path.scope.hasBinding('g'))
     }
 }
 
@@ -2167,7 +2169,7 @@ traverse(ast, visitor);
 
 #### Binding  
 
-`Binding` 对象用于存储 被绑定在作用域的量 的信息  
+`Binding` 对象用于存储 绑定 在作用域的量 的信息  
 你可以在 `@babel/traverse/lib/scope/binding.js` 查看到它的定义  
 
 
@@ -2198,7 +2200,7 @@ const visitor = {
         console.log("\n此块节点源码：\n", path.toString())
         console.log('----------------------------------------')
         var bindings = path.scope.bindings
-        console.log('作用域内 被绑定量 数量：', Object.keys(bindings).length)
+        console.log('作用域内 绑定 的数量：', Object.keys(bindings).length)
 
         for(var binding_ in bindings){
             console.log('名字：', binding_)
@@ -2283,9 +2285,7 @@ console.log(generator(ast)['code'])
 `@return bool`  
 
 对比函数，`expected`传入一个字典进行 `key`, `value` 遍历  
-
 获取 `actual`.`key` 的值与 `value` 进行对比  
-
 如果有一个不一致，那么返回 `false`, 否则返回 `true`  
 
 其定义在： `@babel/types/lib/validators/generated/index.js`  
