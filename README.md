@@ -35,7 +35,7 @@
 
 
 
-#### options 函数参数  
+#### 解析函数 options 参数参考  
 
 |参数|说明|
 |--|--|
@@ -133,7 +133,7 @@ function delete_comments(sourceCode) {
 对应路径 `@babel/traverse/lib/path/index.js`  
 此文件主要包括 `NodePath` 的定义和一些基本方法  
 
-#### NodePath 基础属性  
+#### NodePath 属性  
 
 ~~~javascript
 const parser = require("@babel/parser");
@@ -2162,7 +2162,50 @@ traverse(ast, visitor);
 
 用于刷新 Scope 内的数据  
 
-例如更新内部节点后Binding没有刷新的问题
+例如修改代码中的一些节点后, 对应 `Scope.bindings` 没有更新的问题  
+
+> 例：修正插入新的变量节点后 Scope.bindings 信息未更新的问题  
+
+~~~javascript
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generator = require("@babel/generator").default;
+const types = require("@babel/types");
+
+const jscode = `
+function a(n){
+    return n * n
+}
+`;
+let ast = parser.parse(jscode);
+const visitor = {
+    ReturnStatement(path) {
+        // 作用域内定义新的变量a(Binding)
+        let newNode = types.VariableDeclaration(
+            "var", 
+            [
+                types.VariableDeclarator(
+                    types.identifier('a'),
+                    types.stringLiteral('well')
+                )
+            ]
+        );
+        path.replaceWith(newNode);
+
+        console.log('未更新Scope信息时', Object.keys(path.scope.bindings));
+        path.scope.crawl();
+        console.log('更新Scope信息后', Object.keys(path.scope.bindings));
+    }
+}
+
+traverse(ast, visitor);
+console.log('最终代码', generator(ast)['code'])
+
+~~~
+
+
+
+
 
 
 
@@ -2267,7 +2310,16 @@ traverse(ast, visitor);
 console.log(generator(ast)['code'])
 ~~~
 
-
+<details>
+<summary>结果</summary>   
+<pre>
+未更新Scope信息时 [ 'n' ]
+更新Scope信息后 [ 'n', 'a' ]
+最终代码 function a(n) {
+  var a = "well";
+}
+</pre>
+</details>
 
 
 
