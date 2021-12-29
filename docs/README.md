@@ -1,11 +1,13 @@
 文档浏览：[https://evilrecluse.top/Babel-traverse-api-doc/#/](https://evilrecluse.top/Babel-traverse-api-doc/#/)  
 推荐使用 ↑↑↑GitPage↑↑↑ 进行浏览  
 
+>注意：页面会被浏览器缓存下来，查看前建议清理缓存，不然文档可能不会更新，一直在旧版本    
 
 
 ## API信息  
 
-由于 Babel 官方文档中没有 **@babel/traverse** API文档，只有一份奇怪的操作说明书 [Babel Plugin Handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse)。所以我自行编写了一个简略的API记录  
+由于 Babel 官方文档中没有 **@babel/traverse** API文档，只有一份奇怪的操作说明书 [Babel Plugin Handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse)  
+所以我自行编写了一个简略的API记录  
 
 這些記錄是我自行查閲文檔/源代碼，來進行編寫的，大多數都會編寫一個小例子來進行説明  
 
